@@ -25,6 +25,7 @@ const rules = [
 
 const steps = [
   `<a href="${REPO_URL}" target="_blank" rel="noopener nofollow" class="text-accent-coral link-underline">Fork repo</a> và clone về máy`,
+  'Tạo branch mới từ <code class="px-1.5 py-0.5 bg-accent-amber/10 text-accent-amber font-mono text-xs">main</code> — không làm việc trực tiếp trên main (ví dụ: <code class="px-1.5 py-0.5 bg-accent-amber/10 text-accent-amber font-mono text-xs">git checkout -b feat/tên-trang</code>)',
   'Tạo thư mục mới trong <code class="px-1.5 py-0.5 bg-accent-amber/10 text-accent-amber font-mono text-xs">src/views/&lt;tên-trang&gt;/</code> với file <code class="px-1.5 py-0.5 bg-accent-amber/10 text-accent-amber font-mono text-xs">index.vue</code>',
   'Thêm route trong <code class="px-1.5 py-0.5 bg-accent-amber/10 text-accent-amber font-mono text-xs">src/router/index.ts</code>',
   'Thêm link trang của bạn vào mảng <code class="px-1.5 py-0.5 bg-accent-amber/10 text-accent-amber font-mono text-xs">pages</code> trong <code class="px-1.5 py-0.5 bg-accent-amber/10 text-accent-amber font-mono text-xs">src/data/pages.ts</code>',

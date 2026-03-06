@@ -56,11 +56,19 @@ chore: cập nhật dependencies
 
 Các type hợp lệ: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`
 
+## Quy tắc về branch
+
+- **KHÔNG** làm việc trực tiếp trên branch `main`
+- Luôn tạo branch mới từ `main` trước khi bắt đầu code
+- Đặt tên branch theo format: `<type>/<mô-tả-ngắn>`
+  - Ví dụ: `feat/trang-game-2048`, `fix/routing-hello-world`, `docs/cap-nhat-readme`
+- Mỗi Pull Request chỉ nên chứa **một** thay đổi logic (một trang mới, một bug fix, ...)
+
 ## Tạo Pull Request
 
-1. Tạo branch mới: `git checkout -b feat/tên-trang`
+1. Tạo branch mới từ `main`: `git checkout -b feat/tên-trang`
 2. Commit thay đổi theo convention ở trên
-3. Push và tạo Pull Request
+3. Push branch và tạo Pull Request vào `main`
 4. Đảm bảo CI pass (lint, type-check, test, build)
 5. Chờ review và merge!
 
