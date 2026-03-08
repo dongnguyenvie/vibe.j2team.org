@@ -85,8 +85,13 @@ function toggleUnit() {
                    px-2 py-1.5 text-xs text-text-primary
                    focus:outline-none focus:border-accent-sky shrink-0"
           >
-            <option v-for="r in REGIONS" :key="r.name" :value="r">
-              {{ r.label }}
+            <option
+              v-for="r in REGIONS"
+              :key="r.name"
+              :value="r"
+              :disabled="r.active === false"
+            >
+              {{ r.label }}{{ r.active === false ? ' (tạm tắt)' : '' }}
             </option>
           </select>
 
