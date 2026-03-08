@@ -147,9 +147,9 @@ export function useSketchWarsGameCanvas(
     let p2Count = 0
 
     for (let i = 0; i < data.length; i += 4) {
-      const r = data[i]
-      const g = data[i + 1]
-      const b = data[i + 2]
+      const r = data[i] ?? 0
+      const g = data[i + 1] ?? 0
+      const b = data[i + 2] ?? 0
       // Match coral (P1): high red, moderate green, low-ish blue
       if (r > 200 && g < 150 && b < 120) p1Count++
       // Match sky (P2): low red, high green, high blue
