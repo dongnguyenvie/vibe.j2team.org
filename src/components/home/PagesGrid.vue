@@ -1,9 +1,34 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, type Directive } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 import { pages } from '@/data/pages-loader'
 import { padIndex } from '@/data/homepage'
 import { categories } from '@/data/categories'
+
+const observer = new IntersectionObserver(
+  (entries) => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) {
+        ;(entry.target as HTMLElement).classList.add('animate-fade-up')
+        observer.unobserve(entry.target)
+      }
+    }
+  },
+  { threshold: 0.1 },
+)
+
+const vAnimate: Directive<HTMLElement, string | undefined> = {
+  mounted(el, binding) {
+    if (binding.value) {
+      el.style.animationDelay = binding.value
+    }
+    el.style.opacity = '0'
+    observer.observe(el)
+  },
+  unmounted(el) {
+    observer.unobserve(el)
+  },
+}
 
 function removeAccents(str: string): string {
   return str
@@ -97,7 +122,8 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
 <template>
   <main class="max-w-5xl mx-auto px-4 sm:px-6 pb-16 scroll-reveal">
     <h2
-      class="font-display text-xl sm:text-2xl font-semibold text-text-primary mb-8 flex items-center gap-3 animate-fade-up"
+      v-animate
+      class="font-display text-xl sm:text-2xl font-semibold text-text-primary mb-8 flex items-center gap-3"
     >
       <span class="text-accent-coral font-display text-sm tracking-widest">//</span>
       Các trang đã tạo
@@ -109,7 +135,7 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
     </h2>
 
     <!-- Search & Filter -->
-    <div class="mb-6 space-y-4 animate-fade-up" style="animation-delay: 100ms">
+    <div v-animate="'100ms'" class="mb-6 space-y-4">
       <!-- Search input + Random button -->
       <div class="flex flex-col sm:flex-row gap-3">
         <div class="relative flex-1">
@@ -205,8 +231,8 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
         v-for="(page, index) in filteredPages"
         :key="page.path"
         :to="page.path"
-        class="group relative flex flex-col border border-border-default bg-bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-l-4 hover:border-l-accent-coral hover:bg-bg-elevated hover:shadow-lg hover:shadow-accent-coral/5 animate-fade-up"
-        :style="{ animationDelay: `${Math.min(400 + index * 60, 1000)}ms` }"
+        v-animate="`${(index % 6) * 50}ms`"
+        class="group relative flex flex-col border border-border-default bg-bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-l-4 hover:border-l-accent-coral hover:bg-bg-elevated hover:shadow-lg hover:shadow-accent-coral/5"
       >
         <!-- Background number -->
         <span
@@ -242,7 +268,8 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
       <!-- Placeholder card -->
       <div
         v-if="!isFiltering"
-        class="flex items-center justify-center border border-dashed border-border-default p-6 text-text-dim animate-pulse-border animate-fade-up animate-delay-6"
+        v-animate
+        class="flex items-center justify-center border border-dashed border-border-default p-6 text-text-dim animate-pulse-border animate-delay-6"
       >
         <span class="text-sm font-display tracking-wide">Trang của bạn sẽ ở đây...</span>
       </div>
